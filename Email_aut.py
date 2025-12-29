@@ -1,3 +1,4 @@
+import locale
 import os
 import smtplib
 from email.message import EmailMessage
@@ -19,6 +20,15 @@ SMTP_PASS = os.environ["SMTP_PASS"]   # Mailjet Secret Key
 # Cargar HTML
 with open("template/email.html", "r", encoding="utf-8") as f:
     html_body = f.read()
+
+try:
+    locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
+except:
+    try:
+        locale.setlocale(locale.LC_TIME, "es_CL.UTF-8")
+    except:
+        locale.setlocale(locale.LC_TIME, "Spanish_Spain")
+
 
 # Fecha bonita (ej: lunes 9 de septiembre de 2025)
 fecha_hoy = datetime.now().strftime("Hoy, %A %d de %B de %Y")
