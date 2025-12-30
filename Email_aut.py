@@ -1,10 +1,12 @@
-import locale
+
 import os
 import smtplib
 from email.message import EmailMessage
 from dotenv import load_dotenv
 from email.utils import formataddr
 from datetime import datetime
+from zoneinfo import ZoneInfo
+from babel.dates import format_datetime
 
 
 load_dotenv(override=True)
@@ -21,18 +23,11 @@ SMTP_PASS = os.environ["SMTP_PASS"]   # Mailjet Secret Key
 with open("template/email.html", "r", encoding="utf-8") as f:
     html_body = f.read()
 
-try:
-    locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
-except:
-    try:
-        locale.setlocale(locale.LC_TIME, "es_CL.UTF-8")
-    except:
-        locale.setlocale(locale.LC_TIME, "Spanish_Spain")
 
 
-# Fecha bonita (ej: lunes 9 de septiembre de 2025)
-fecha_hoy = datetime.now().strftime("Hoy, %A %d de %B de %Y")
-fecha_hoy = fecha_hoy.capitalize()
+now = datetime.now(ZoneInfo("America/Santiago"))
+fecha_hoy = "Hoy, " + format_datetime(now, "EEEE d 'de' MMMM 'de' y", locale="es").capitalize()
+
 
 
 # Reemplazar placeholder
