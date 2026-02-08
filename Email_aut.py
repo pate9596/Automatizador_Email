@@ -36,7 +36,7 @@ html_body = html_body.replace("{{FECHA}}", fecha_hoy)
 msg = EmailMessage()
 msg["Subject"] = "Buenos días, que tengas un hermoso día 💖"
 
-msg["From"] = formataddr(("Mensaje de buenos días", EMAIL_FROM))
+msg["From"] = formataddr(("Carta de Año Nuevo", EMAIL_FROM))
 msg["Reply-To"] = EMAIL_FROM
 
 msg["To"] = EMAIL_TO
